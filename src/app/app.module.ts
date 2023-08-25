@@ -13,6 +13,12 @@ import { IifComponent } from './comps/operators/iif/iif.component';
 import { ConcatComponent } from './comps/operators/concat/concat.component';
 import { MergeComponent } from './comps/operators/merge/merge.component';
 import { PartitionComponent } from './comps/operators/partition/partition.component';
+import { PipeComponent } from './comps/pipe/pipe.component';
+import { AuditComponent } from './comps/operators/audit/audit.component';
+import { DebounceComponent } from './comps/operators/debounce/debounce.component';
+import { DistinctComponent } from './comps/operators/distinct/distinct.component';
+import { FilterComponent } from './comps/operators/filter/filter.component';
+import { IgnoreElementsComponent } from './comps/operators/ignore-elements/ignore-elements.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { PartitionComponent } from './comps/operators/partition/partition.compon
     IifComponent,
     ConcatComponent,
     MergeComponent,
-    PartitionComponent
+    PartitionComponent,
+    PipeComponent,
+    AuditComponent,
+    DebounceComponent,
+    DistinctComponent,
+    FilterComponent,
+    IgnoreElementsComponent
   ],
   imports: [
     BrowserModule

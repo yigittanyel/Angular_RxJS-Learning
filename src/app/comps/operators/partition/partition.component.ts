@@ -8,6 +8,9 @@ import { of, partition } from 'rxjs';
 })
 export class PartitionComponent implements OnInit {
   ngOnInit(): void {
+
+    // partition operatörü ile belirtilen koşula göre observable ikiye farklı davranış gösterir.
+
     const obs1=of(1,2,3,4,5,6,7,8,9,10);
 
     const [obs2,obs3]=partition(obs1,data=>data%4==0);

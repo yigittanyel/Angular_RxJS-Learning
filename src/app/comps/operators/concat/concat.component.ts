@@ -8,6 +8,9 @@ import { of,concat } from 'rxjs';
 })
 export class ConcatComponent implements OnInit {
   ngOnInit(): void {
+
+    // concat operatörü ile iki observable birleştirilir ve biri bittikten sonra diğeri çalışır.
+
     const obs1=of(1,2,3);
     const obs2=of(4,5,6);
 
