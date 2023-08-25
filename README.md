@@ -387,10 +387,129 @@ Burada aslında izlenebilir nesnemizi 4 ile bölünenler ve bölünmeyenler olar
 
 <hr>
 
-Hazırlarken faydalandığım kaynaklar:<hr>
-Gençay Yıldız hocamızın ücretsiz sunduğu YouTube playlisti : https://www.youtube.com/watch?v=tEUda4YzCI4&list=PLQVXoXFVVtp1v1_D_8ocGOsWFGvK1Ha-E&index=1 <br>
-RxJS Documentation : https://rxjs.dev/guide/overview
+## Gerçek Hayat Örnekleri
 
+Jsonplaceholder sitesindeki todos listesi için metotlar yazalım. GetTodos isimli metodumuz olsun ve bu metotta gelecek verilerden ilk 10 veriyi alalım ve bunların sadece id ve title kısımlarını yazdıralım. Akabinde de GetTodosWithSearch metodumuzda input'a girilen text'e göre arama yapıp buna göre sonuç döndürelim.
+
+Todo Service:
+``` typescript
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { TodoModel } from '../models/todo-model';
+import { from, map, mergeMap, take } from 'rxjs';
+
+@Injectable({
+providedIn: 'root',
+})
+export class TodoService {
+constructor(private http: HttpClient) {}
+
+getTodos() {
+  return this.http
+    .get<TodoModel[]>('https://jsonplaceholder.typicode.com/todos')
+    .pipe(
+      mergeMap((todos) => from(todos)),
+      take(10),
+      map((x) => `${x.id} - ${x.title}`)
+    );
+}
+
+getTodosWithSearch(search: string) {
+  return this.http
+    .get<TodoModel[]>('https://jsonplaceholder.typicode.com/todos')
+    .pipe(
+      mergeMap((todos) => from(todos)),
+      take(10),
+      map((x) => `${x.id} - ${x.title}`),
+      map((x) => (x.includes(search.toLowerCase()) ? x :null))
+    );
+}
+}
+```
+
+Ts dosyamız:
+
+``` typescript
+import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../services/todo.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, iif, map, merge, mergeMap, of } from 'rxjs';
+
+@Component({
+selector: 'app-real-life-scenario',
+templateUrl: './real-life-scenario.component.html',
+styleUrls: ['./real-life-scenario.component.css']
+})
+export class RealLifeScenarioComponent implements OnInit {
+
+search = new FormControl('');
+
+ngOnInit(): void {
+
+  // this.todoService.getTodos().subscribe(datas => {
+  //   console.log(datas);
+  // }
+  // );
+
+  // this.todoService.getTodosWithSearch('qui').subscribe(datas => {
+  //   console.log(datas);
+  // }
+  // );
+
+  this.search.valueChanges
+  .pipe(
+    debounceTime(500),
+    map((val: string | null) => (val ? val.trim() : '')),
+    distinctUntilChanged(),
+    mergeMap((val: string) =>
+      iif(() => val.length >= 4, of(val), of(''))
+    ),
+    mergeMap((val: string) => {
+      if (val === '') {
+        return of(null);
+      } else {
+        return this.todoService.getTodosWithSearch(val);
+      }
+    })
+  )
+  .subscribe((datas) => {
+    if (datas !== null) {
+      console.log(datas);
+    }
+  });
+}
+
+constructor(private todoService:TodoService) { }
+
+}
+```
+
+GetTodos'dan dönen değer şu şekilde : <br>
+1 - delectus aut autem
+2 - quis ut nam facilis et officia qui
+3 - fugiat veniam minus
+4 - et porro tempora
+5 - laboriosam mollitia et enim quasi adipisci quia provident illum
+6 - qui ullam ratione quibusdam voluptatem quia omnis
+7 - illo expedita consequatur quia in
+8 - quo adipisci enim quam ut ab
+9 - molestiae perspiciatis ipsa
+10 - illo est ratione doloremque quia maiores aut
+
+Search için "qui" yazdığımızda gelen sonuç şöyle:<br>
+2 - quis ut nam facilis et officia qui
+5 - laboriosam mollitia et enim quasi adipisci quia provident illum
+6 - qui ullam ratione quibusdam voluptatem quia omnis
+7 - illo expedita consequatur quia in
+10 - illo est ratione doloremque quia maiores aut
+
+<hr>
+Hazırlarken faydalandığım kaynaklar:<br>
+Gençay Yıldız hocamızın ücretsiz sunduğu YouTube playlisti : https://www.youtube.com/watch?v=tEUda4YzCI4&list=PLQVXoXFVVtp1v1_D_8ocGOsWFGvK1Ha-E&index=1 <br>
+RxJS Documentation : https://rxjs.dev/guide/overview <br>
+Udemy Fatih Çakıroğlu Angular & RxJS kursu
+
+<hr>
 Umarım verimli olur. İyi çalışmalar dilerim :)
 
-Yiğit Tanyel
+<b> Yiğit Tanyel </b>
