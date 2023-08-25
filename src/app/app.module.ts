@@ -19,6 +19,9 @@ import { DebounceComponent } from './comps/operators/debounce/debounce.component
 import { DistinctComponent } from './comps/operators/distinct/distinct.component';
 import { FilterComponent } from './comps/operators/filter/filter.component';
 import { IgnoreElementsComponent } from './comps/operators/ignore-elements/ignore-elements.component';
+import { RealLifeScenarioComponent } from './real-life-scenario/real-life-scenario.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // FormsModule'ı ekleyin
 
 @NgModule({
   declarations: [
@@ -39,10 +42,14 @@ import { IgnoreElementsComponent } from './comps/operators/ignore-elements/ignor
     DebounceComponent,
     DistinctComponent,
     FilterComponent,
-    IgnoreElementsComponent
+    IgnoreElementsComponent,
+    RealLifeScenarioComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
