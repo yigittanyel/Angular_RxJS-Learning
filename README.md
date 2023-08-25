@@ -387,8 +387,8 @@ Burada aslında izlenebilir nesnemizi 4 ile bölünenler ve bölünmeyenler olar
 
 <hr>
 
-Hazırlarken faydalandığım kaynaklar:
-Gençay Yıldız hocamızın ücretsiz sunduğu YouTube playlisti : https://www.youtube.com/watch?v=tEUda4YzCI4&list=PLQVXoXFVVtp1v1_D_8ocGOsWFGvK1Ha-E&index=1
+Hazırlarken faydalandığım kaynaklar:<hr>
+Gençay Yıldız hocamızın ücretsiz sunduğu YouTube playlisti : https://www.youtube.com/watch?v=tEUda4YzCI4&list=PLQVXoXFVVtp1v1_D_8ocGOsWFGvK1Ha-E&index=1 <br>
 RxJS Documentation : https://rxjs.dev/guide/overview
 
 Umarım verimli olur. İyi çalışmalar dilerim :)
