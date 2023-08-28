@@ -365,6 +365,21 @@ obs1.pipe(ignoreElements())
 
 Burada sonuç olarak bize Completed değeri dönecektir. Eğer bir hata olsaydı hata fırlatılıp error yazılacaktı.
 
+### Tap
+Tap operatörü, bir observable'ın verilerini veya olaylarını işlemeden önce veya sonra bir işlevi çalıştırmak için kullanılır. Bu, observable'ın verilerini veya olaylarını izlemek veya işlemek için kullanışlıdır.
+
+Örnek:
+``` typescript
+import { of, tap, map } from 'rxjs';
+
+of(Math.random()).pipe(
+  tap(console.log),
+  map(n => n > 0.5 ? 'bigger than 0.5' : 'smaller than 0.5')
+).subscribe(console.log);
+```
+
+Burada sonuç olarak random dönen değer 0.5'den büyükse "bigger than 0.5", küçükse ise "smaller than 0.5" döner.
+
 ### Partition
 Partition operatörü ile belirtilen koşula göre observable ikiye farklı davranış gösterir.
 
